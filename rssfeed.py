@@ -27,6 +27,20 @@ class RssFeed:
         self.NewTitle = ''
         self.ArticleUrl = ''
         self.Description = ''
+        self.TitleHistory = []
+
+    def checkTitleHistory(self, newTitle):
+        hasValue = 1
+        try:
+            b=self.TitleHistory.index(newTitle)
+        except ValueError:
+            hasValue = 0
+        # limit to 5 entries
+        if (len(self.TitleHistory) > 5):
+            self.TitleHistory.pop(0)
+        # always append
+        self.TitleHistory.append(newTitle)
+        return(hasValue)
 
     def jointext(self):
         text = ''
@@ -55,4 +69,3 @@ class RssFeed:
         text += ';' + str(self.ShowUrl)
         text += '\''
         return text
-

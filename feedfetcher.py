@@ -132,13 +132,14 @@ def fetching_feed(feed):
         if d['entries']:
             feed.NewTitle = d['entries'][0]['title']
             feed.ArticleUrl = d['entries'][0]['link']
+            isOldTitle = feed.checkTitleHistory(feed.NewTitle)
             if feed.ShowDescription == True:
                 feed.Description = d['entries'][0]['description']
             if settings.skip_init_article and len(feed.LastTitle) <= 0:
                 if not silent_mode:
                     logging.debug('Initializing feed: ' + feed.Name + '. Skipping the last news: ' + feed.NewTitle)
                 feed.LastTitle = feed.NewTitle
-            elif feed.LastTitle != feed.NewTitle:
+            elif not isOldTitle: #feed.LastTitle != feed.NewTitle:
                 if not silent_mode:
                     logging.debug('Feed url: ' + feed.Url)
                     logging.debug('Title: ' + feed.NewTitle)
