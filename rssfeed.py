@@ -33,6 +33,9 @@ class RssFeed:
         hasValue = 1
         try:
             b=self.TitleHistory.index(newTitle)
+            # if value exists, remove it
+            a.pop(b)
+            # this basically will put it on the head of the queue.
         except ValueError:
             hasValue = 0
         # limit to 30 entries
