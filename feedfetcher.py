@@ -138,7 +138,8 @@ def fetching_feed(feed):
             if settings.skip_init_article and len(feed.LastTitle) <= 0:
                 if not silent_mode:
                     logging.debug('Initializing feed: ' + feed.Name + '. Skipping the last news: ' + feed.NewTitle)
-                feed.LastTitle = feed.NewTitle
+                #feed.LastTitle = feed.NewTitle
+                # this is done after the loop now.
             elif not isOldTitle: #feed.LastTitle != feed.NewTitle:
                 if not silent_mode:
                     logging.debug('Feed url: ' + feed.Url)
