@@ -38,8 +38,8 @@ class RssFeed:
             # this basically will put it on the head of the queue.
         except ValueError:
             hasValue = 0
-        # limit to 30 entries
-        if (len(self.TitleHistory) >= 30):
+        # limit to 50 entries
+        if (len(self.TitleHistory) >= 50):
             self.TitleHistory.pop(0)
         # always append
         self.TitleHistory.append(newTitle)
