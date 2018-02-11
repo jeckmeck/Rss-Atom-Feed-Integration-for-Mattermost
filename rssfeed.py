@@ -35,8 +35,8 @@ class RssFeed:
             b=self.TitleHistory.index(newTitle)
         except ValueError:
             hasValue = 0
-        # limit to 20 entries
-        if (len(self.TitleHistory) >= 20):
+        # limit to 30 entries
+        if (len(self.TitleHistory) >= 30):
             self.TitleHistory.pop(0)
         # always append
         self.TitleHistory.append(newTitle)
