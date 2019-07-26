@@ -129,16 +129,18 @@ class RSSManagementRequestHandler(BaseHTTPRequestHandler):
 def fetching_feed(feed):
     try:
         d = feedparser.parse(feed.Url)
-        if d['entries']:
-            feed.NewTitle = d['entries'][0]['title']
-            feed.ArticleUrl = d['entries'][0]['link']
+        for entry in d['entries']:
+            feed.NewTitle = entry['title']
+            feed.ArticleUrl = entry['link']
+            isOldTitle = feed.checkTitleHistory(feed.NewTitle)
             if feed.ShowDescription == True:
-                feed.Description = d['entries'][0]['description']
+                feed.Description = entry['description']
             if settings.skip_init_article and len(feed.LastTitle) <= 0:
                 if not silent_mode:
                     logging.debug('Initializing feed: ' + feed.Name + '. Skipping the last news: ' + feed.NewTitle)
-                feed.LastTitle = feed.NewTitle
-            elif feed.LastTitle != feed.NewTitle:
+                #feed.LastTitle = feed.NewTitle
+                # this is done after the loop now.
+            elif not isOldTitle: #feed.LastTitle != feed.NewTitle:
                 if not silent_mode:
                     logging.debug('Feed url: ' + feed.Url)
                     logging.debug('Title: ' + feed.NewTitle)
@@ -149,7 +151,11 @@ def fetching_feed(feed):
             else:
                 if not silent_mode:
                     logging.debug('[' + feed.Name +'] Nothing new. Waiting for good news...')
-        else:
+
+        if settings.skip_init_article and len(feed.LastTitle) <= 0:
+            feed.LastTitle = feed.NewTitle
+
+        if not d['entries']:
             if not silent_mode:
                 logging.debug('[' + feed.Name +'] Feed is empty. Waiting for good news...')
     except:
