@@ -31,6 +31,7 @@ silent_mode = settings.silent_mode
 feeds = settings.feeds
 integration_listening_addr = settings.integration_listening_addr
 integration_listening_port = settings.integration_listening_port
+user_agent = settings.user_agent
 
 if (not verify_cert) and hasattr(ssl, '_create_unverified_context'):
     ssl._create_default_https_context = ssl._create_unverified_context
@@ -128,7 +129,7 @@ class RSSManagementRequestHandler(BaseHTTPRequestHandler):
 
 def fetching_feed(feed):
     try:
-        d = feedparser.parse(feed.Url)
+        d = feedparser.parse(feed.Url, None, None, user_agent)
         for entry in d['entries']:
             feed.NewTitle = entry['title']
             feed.ArticleUrl = entry['link']

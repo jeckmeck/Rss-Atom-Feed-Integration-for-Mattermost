@@ -43,6 +43,9 @@ default_show_description = True
 default_show_url = True
 default_channel = ''
 
+# User agent string that should be used when fetching the feeds. (None for default)
+user_agent = None
+
 # Your feeds come here:
 # RssFeed('Feed name', 'Feed URL', 'Image URL', 'Mattermost username', 'Mattermost channel',
 # show name, show title, show description, show url)

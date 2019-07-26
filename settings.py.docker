@@ -45,6 +45,9 @@ default_show_description = env.bool('RSS_SHOW_DESCR', True)
 default_show_url = env.bool('RSS_SHOW_URL', True)
 default_channel = env.str('MATTERMOST_CHANNEL')
 
+# User agent string that should be used when fetching the feeds. (None for default)
+user_agent = env.str('USER_AGENT', None)
+
 # Your feeds come here:
 # RssFeed('Feed name', 'Feed URL', 'Image URL', 'Mattermost username', 'Mattermost channel',
 # show name, show title, show description, show url)
